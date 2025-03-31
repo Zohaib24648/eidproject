@@ -6,31 +6,43 @@
     <title>Eid Eidi Calculator</title>
     <link rel="stylesheet" href="./styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
+    <div id="overlay" class="overlay"></div>
+    
     <div class="container">
         <div id="welcome-screen" class="screen active">
+            <div class="header-decoration">✨ 🌙 ✨ 🌟 ✨</div>
             <h1>Eid Mubarak! 🌙</h1>
+            <h2 class="subtitle">Eidi Calculator</h2>
             <p>Find out how much Eidi you deserve!</p>
             <div class="form-group">
                 <form id="user-form">
                     <input type="text" id="name" placeholder="Your Name" required>
                     <input type="text" id="account" placeholder="Your Account Number" required>
-                    <button type="submit" class="btn">Start</button>
+                    <button type="submit" class="btn">Start ✨</button>
                 </form>
             </div>
+            <div class="creator-tag">Eidi Calculator<br>Created by Zohaib Ali Mughal</div>
         </div>
 
         <div id="questions-screen" class="screen">
+            <div class="header-decoration">✨ 🌙 ✨</div>
+            <h2 class="subtitle">Eidi Calculator</h2>
             <div class="progress-bar">
                 <div class="progress"></div>
             </div>
             <div id="question-container">
                 <!-- Questions will be inserted here dynamically -->
             </div>
+            <div id="reaction" class="reaction-container">
+                <!-- Reaction will be displayed here -->
+            </div>
         </div>
 
         <div id="result-screen" class="screen">
+            <div class="header-decoration">✨ 🌙 ✨ 🌟 ✨</div>
             <h1>Your Eidi Results! 🎉</h1>
             <div class="result-card">
                 <p>Dear <span id="result-name"></span>,</p>
@@ -40,9 +52,21 @@
                 <div class="screenshot-request">
                     <p>Take a screenshot of this page and send it to get your Eidi transferred!</p>
                 </div>
-                <button id="restart" class="btn">Try Again</button>
+                <button id="restart" class="btn">Try Again ✨</button>
             </div>
         </div>
+    </div>
+    <div class="floating-elements">
+        <div class="floating-item">🌟</div>
+        <div class="floating-item">🎀</div>
+        <div class="floating-item">✨</div>
+        <div class="floating-item">🌙</div>
+        <div class="floating-item">🎁</div>
+        <div class="floating-item">⭐</div>
+        <div class="floating-item">🌜</div>
+        <div class="floating-item">✨</div>
+        <div class="floating-item">🌛</div>
+        <div class="floating-item">⭐</div>
     </div>
     <script src="./script.js"></script>
 </body>

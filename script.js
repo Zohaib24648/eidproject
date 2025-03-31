@@ -1,48 +1,48 @@
 // Questions data with options and eidi values
 const questions = [
     {
-        question: "How often do you pray?",
+        question: "Rozana namaz parhtay thay?",
         options: [
-            { text: "5 times a day", value: 500 },
-            { text: "Sometimes", value: 300 },
-            { text: "Only on Fridays", value: 200 },
-            { text: "Rarely", value: 100 }
+            { text: "Roz 5 waqt", value: 100, feedback: "MashAllah bhai! Seedha Jannat ka VIP pass! 🕌✨" },
+            { text: "Kabhi kabhi", value: 80, feedback: "Chalo shukr hai kuch tou parhtay thay, consistency lao! 🙏" },
+            { text: "Sirf Jummah", value: 60, feedback: "Start tou hai, magar roz ka scene banao bhai. 🕋" },
+            { text: "Bas Eid pe", value: 40, feedback: "Namaz sirf Eid ki choti nahi hoti boss! 😅" }
         ]
     },
     {
-        question: "How do you treat your parents?",
+        question: "Kitne rozay rakhe thay?",
         options: [
-            { text: "With utmost respect and care", value: 600 },
-            { text: "I respect them but sometimes argue", value: 400 },
-            { text: "We have our differences", value: 200 },
-            { text: "We don't get along well", value: 100 }
+            { text: "Saray mashAllah", value: 100, feedback: "Taqwa level: Pro Max! 🌙💪" },
+            { text: "20-30", value: 80, feedback: "Wah bhai, patience aur bukhaar dono sambhal liye! 🔥" },
+            { text: "10-20", value: 60, feedback: "Half-half kar liya Ramadan ka subscription! 📅" },
+            { text: "0-10", value: 40, feedback: "Rozay nahi rakhe, roza khor pakray gaye! 😂" }
         ]
     },
     {
-        question: "How often do you help others?",
+        question: "Mere liye kitni dafa dua ki thi?",
         options: [
-            { text: "Whenever I can", value: 500 },
-            { text: "On special occasions", value: 300 },
-            { text: "When asked to", value: 200 },
-            { text: "Rarely", value: 100 }
+            { text: "Roz roz", value: 100, feedback: "Tera dil tou saaf hai bhai, Allah khush rakhe! ❤️🤲" },
+            { text: "Hafte mein ek dafa", value: 80, feedback: "Chalo theek hai, kam az kam yaad tou kiya! 📆" },
+            { text: "Sirf ek dafa", value: 60, feedback: "Zarurat thi ya waqt nahi mila? 🤔" },
+            { text: "Bhool gaya/gayi", value: 40, feedback: "Bus abhi dua kar lo, waqt gaya nahi! 🙏" }
         ]
     },
     {
-        question: "How was your fasting during Ramadan?",
+        question: "Eid ka snap bhejoge/bhejogi?",
         options: [
-            { text: "Fasted the whole month", value: 500 },
-            { text: "Missed a few days", value: 350 },
-            { text: "Fasted occasionally", value: 200 },
-            { text: "Didn't fast", value: 100 }
+            { text: "Han han exclusive drop", value: 100, feedback: "Style bhi, sharing bhi – Eid goals! 📸✨" },
+            { text: "Group mein bhej dunga/dungi", value: 80, feedback: "Public service bhi zaroori hai! 👨‍👩‍👧‍👦" },
+            { text: "Agar bana tou zaroor", value: 60, feedback: "Snap banane se Eid complete hoti hai! 📱" },
+            { text: "Bhag simp kahin ke", value: 40, feedback: "Snap ka intezar rahega, simp na ban! 😜" }
         ]
     },
     {
-        question: "How do you spend your money?",
+        question: "Eidi se treat milega Eid ke baad?",
         options: [
-            { text: "Save most, donate some", value: 600 },
-            { text: "Balanced between saving and spending", value: 400 },
-            { text: "Spend most of it", value: 200 },
-            { text: "Always short on money", value: 100 }
+            { text: "Han exclusive, bestie ho tum", value: 100, feedback: "Loyalty check: Pass with flying colors! 🏆💯" },
+            { text: "Han sab ko milega", value: 80, feedback: "Bari baat hai, Eidi distribute karke bhi zinda ho! 🎁" },
+            { text: "Dekhte hain", value: 60, feedback: "Zaroori nahi ke treat ho, niyyat honi chahiye! 🤝" },
+            { text: "Bhag yahan se", value: 40, feedback: "Yeh nafrat kyun bhai, chocolate tou de do! 🍫" }
         ]
     }
 ];
@@ -52,6 +52,8 @@ let currentQuestion = 0;
 let selectedAnswers = [];
 let userName = "";
 let accountNumber = "";
+let isReactionVisible = false;
+let reactionTimer = null; // Add this variable to track the timer
 
 // DOM elements
 const welcomeScreen = document.getElementById('welcome-screen');
@@ -64,11 +66,48 @@ const resultName = document.getElementById('result-name');
 const resultAccount = document.getElementById('result-account');
 const totalEidi = document.getElementById('total-eidi');
 const restartButton = document.getElementById('restart');
+const reactionContainer = document.getElementById('reaction');
+const mainOverlay = document.getElementById('overlay');
 
 // Initialize the app
 function init() {
     userForm.addEventListener('submit', handleUserFormSubmit);
     restartButton.addEventListener('click', resetApp);
+    
+    // Add animation to floating elements
+    animateFloatingElements();
+    
+    // Add creator signature to all screens
+    addCreatorSignature();
+}
+
+// Add creator signature to all screens
+function addCreatorSignature() {
+    const screens = document.querySelectorAll('.screen');
+    screens.forEach(screen => {
+        const existingSignature = screen.querySelector('.creator-tag');
+        if (!existingSignature) {
+            const signature = document.createElement('div');
+            signature.className = 'creator-tag';
+            signature.innerHTML = 'Eidi Calculator<br>Created by Zohaib Ali Mughal';
+            screen.appendChild(signature);
+        } else {
+            existingSignature.innerHTML = 'Eidi Calculator<br>Created by Zohaib Ali Mughal';
+        }
+    });
+}
+
+// Animate floating elements
+function animateFloatingElements() {
+    const floatingItems = document.querySelectorAll('.floating-item');
+    
+    floatingItems.forEach(item => {
+        const randomX = Math.random() * window.innerWidth;
+        const randomY = Math.random() * window.innerHeight;
+        
+        item.style.left = `${randomX}px`;
+        item.style.top = `${randomY}px`;
+    });
 }
 
 // Handle user form submission
@@ -77,12 +116,14 @@ function handleUserFormSubmit(e) {
     userName = document.getElementById('name').value;
     accountNumber = document.getElementById('account').value;
     
-    // Switch to questions screen
+    // Switch to questions screen with animation
     welcomeScreen.classList.remove('active');
-    questionsScreen.classList.add('active');
-    
-    // Load first question
-    loadQuestion();
+    setTimeout(() => {
+        questionsScreen.classList.add('active');
+        
+        // Load first question
+        loadQuestion();
+    }, 300);
 }
 
 // Load a question into the DOM
@@ -100,9 +141,9 @@ function loadQuestion() {
         const questionElement = document.createElement('div');
         questionElement.className = 'question';
         
-        // Add question title
+        // Add question title with Eid decoration
         const questionTitle = document.createElement('h2');
-        questionTitle.textContent = `${currentQuestion + 1}. ${questionData.question}`;
+        questionTitle.innerHTML = `<span class="eid-decoration">✨ 🌙 ✨</span><br>${currentQuestion + 1}. ${questionData.question}`;
         questionElement.appendChild(questionTitle);
         
         // Add options
@@ -115,8 +156,14 @@ function loadQuestion() {
             optionElement.textContent = option.text;
             optionElement.dataset.value = option.value;
             optionElement.dataset.index = index;
+            optionElement.dataset.feedback = option.feedback;
             
-            optionElement.addEventListener('click', () => selectOption(optionElement, questionElement));
+            optionElement.addEventListener('click', () => {
+                // Only allow selection if no reaction is currently visible
+                if (!isReactionVisible) {
+                    selectOption(optionElement, questionElement);
+                }
+            });
             
             optionsContainer.appendChild(optionElement);
         });
@@ -139,13 +186,73 @@ function selectOption(selectedOption, questionElement) {
     selectedOption.classList.add('selected');
     
     // Store answer
-    selectedAnswers[currentQuestion] = parseInt(selectedOption.dataset.value);
+    const value = parseInt(selectedOption.dataset.value);
+    selectedAnswers[currentQuestion] = value;
     
-    // Move to next question after a brief delay
-    setTimeout(() => {
-        currentQuestion++;
-        loadQuestion();
-    }, 500);
+    // Show reaction based on value
+    showReaction(value, selectedOption.dataset.feedback);
+    
+    // Set the flag to prevent background clicks
+    isReactionVisible = true;
+    mainOverlay.style.display = 'block';
+}
+
+// Show reaction to the answer
+function showReaction(value, feedback) {
+    const isGood = value >= 80;
+    
+    // Clear any existing timer
+    if (reactionTimer) {
+        clearTimeout(reactionTimer);
+    }
+    
+    // Create timer element with countdown
+    reactionContainer.innerHTML = `
+        <div class="reaction-icon">${isGood ? '😊' : '😢'}</div>
+        <div class="reaction-text">${feedback}</div>
+        <div class="timer-text">Next question in <span id="countdown">5</span> seconds...</div>
+    `;
+    
+    reactionContainer.style.display = 'block';
+    reactionContainer.className = 'reaction-container';
+    reactionContainer.classList.add(isGood ? 'good' : 'bad');
+    
+    mainOverlay.style.display = 'block';
+    isReactionVisible = true;
+    
+    // Set up countdown display
+    let seconds = 5;
+    const countdownElement = document.getElementById('countdown');
+    
+    const updateCountdown = setInterval(() => {
+        seconds--;
+        if (countdownElement) {
+            countdownElement.textContent = seconds;
+        }
+        if (seconds <= 0) {
+            clearInterval(updateCountdown);
+        }
+    }, 1000);
+    
+    // Set timer to automatically proceed to next question after 5 seconds
+    reactionTimer = setTimeout(() => {
+        clearInterval(updateCountdown);
+        nextQuestion();
+    }, 5000);
+}
+
+// Proceed to the next question
+function nextQuestion() {
+    hideReaction();
+    currentQuestion++;
+    loadQuestion();
+}
+
+// Hide reaction
+function hideReaction() {
+    reactionContainer.style.display = 'none';
+    mainOverlay.style.display = 'none';
+    isReactionVisible = false;
 }
 
 // Show results screen
@@ -162,7 +269,9 @@ function showResults() {
     
     // Switch to results screen
     questionsScreen.classList.remove('active');
-    resultScreen.classList.add('active');
+    setTimeout(() => {
+        resultScreen.classList.add('active');
+    }, 300);
 }
 
 // Animate counter for total eidi
@@ -189,9 +298,18 @@ function animateCounter(start, end, duration) {
 function resetApp() {
     currentQuestion = 0;
     selectedAnswers = [];
+    isReactionVisible = false;
+    
+    // Clear any active timer
+    if (reactionTimer) {
+        clearTimeout(reactionTimer);
+        reactionTimer = null;
+    }
     
     resultScreen.classList.remove('active');
-    welcomeScreen.classList.add('active');
+    setTimeout(() => {
+        welcomeScreen.classList.add('active');
+    }, 300);
     
     document.getElementById('name').value = '';
     document.getElementById('account').value = '';
