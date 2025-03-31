@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eid Eidi Calculator</title>
+    <link rel="stylesheet" href="./styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <div id="welcome-screen" class="screen active">
+            <h1>Eid Mubarak! 🌙</h1>
+            <p>Find out how much Eidi you deserve!</p>
+            <div class="form-group">
+                <form id="user-form">
+                    <input type="text" id="name" placeholder="Your Name" required>
+                    <input type="text" id="account" placeholder="Your Account Number" required>
+                    <button type="submit" class="btn">Start</button>
+                </form>
+            </div>
+        </div>
+
+        <div id="questions-screen" class="screen">
+            <div class="progress-bar">
+                <div class="progress"></div>
+            </div>
+            <div id="question-container">
+                <!-- Questions will be inserted here dynamically -->
+            </div>
+        </div>
+
+        <div id="result-screen" class="screen">
+            <h1>Your Eidi Results! 🎉</h1>
+            <div class="result-card">
+                <p>Dear <span id="result-name"></span>,</p>
+                <p>Based on your answers, you deserve:</p>
+                <h2>Rs. <span id="total-eidi">0</span></h2>
+                <p>Account #: <span id="result-account"></span></p>
+                <div class="screenshot-request">
+                    <p>Take a screenshot of this page and send it to get your Eidi transferred!</p>
+                </div>
+                <button id="restart" class="btn">Try Again</button>
+            </div>
+        </div>
+    </div>
+    <script src="./script.js"></script>
+</body>
+</html>
