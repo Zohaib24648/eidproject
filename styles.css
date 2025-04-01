@@ -390,8 +390,95 @@ input:focus {
     }
 }
 
+/* Mobile-specific styles */
+body.mobile-device .container {
+    width: 95%;
+    max-width: 100%;
+    margin: 10px auto;
+    max-height: 90vh; /* Added to limit container height */
+    overflow-y: auto; /* Added to enable scrolling if container is too tall */
+}
+
+body.mobile-device .screen {
+    padding: 20px 15px;
+}
+
+body.mobile-device h1 {
+    font-size: 26px;
+}
+
+body.mobile-device .subtitle {
+    font-size: 18px;
+}
+
+body.mobile-device .option {
+    padding: 12px;
+}
+
+body.mobile-device .reaction-container {
+    min-width: 80%;
+    max-width: 95%;
+    padding: 15px 20px;
+}
+
+body.mobile-device .header-decoration {
+    font-size: 20px;
+    margin-bottom: 10px;
+    letter-spacing: 5px;
+}
+
+body.mobile-device .btn {
+    padding: 10px 20px;
+}
+
+body.mobile-device .result-card {
+    padding: 20px;
+}
+
+body.mobile-device .result-card h2 {
+    font-size: 30px;
+}
+
+/* Improve touch target sizes for mobile */
 @media (max-width: 768px) {
     .container {
         width: 95%;
+    }
+    
+    .option {
+        min-height: 44px; /* Minimum touch target height */
+    }
+    
+    .btn {
+        min-height: 44px;
+        min-width: 88px; /* Minimum touch target width */
+    }
+    
+    input {
+        height: 44px;
+    }
+}
+
+/* Extra small devices (max-width: 480px) adjustments */
+@media (max-width: 480px) {
+    .container {
+        padding: 15px;
+    }
+    h1 {
+        font-size: 22px;
+    }
+    .subtitle {
+        font-size: 16px;
+    }
+    .question h2 {
+        font-size: 18px;
+    }
+    .btn {
+        padding: 10px 20px;
+        font-size: 14px;
+    }
+    input {
+        padding: 10px 12px;
+        font-size: 14px;
     }
 }

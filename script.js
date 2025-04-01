@@ -54,6 +54,7 @@ let userName = "";
 let accountNumber = "";
 let isReactionVisible = false;
 let reactionTimer = null; // Add this variable to track the timer
+let isMobile = false; // Track if device is mobile
 
 // DOM elements
 const welcomeScreen = document.getElementById('welcome-screen');
@@ -69,10 +70,59 @@ const restartButton = document.getElementById('restart');
 const reactionContainer = document.getElementById('reaction');
 const mainOverlay = document.getElementById('overlay');
 
+// Detect if the device is mobile
+function detectDevice() {
+    isMobile = window.innerWidth <= 768 || 
+               ('ontouchstart' in window) || 
+               (navigator.maxTouchPoints > 0);
+    
+    // Apply specific styling for mobile devices
+    document.body.classList.toggle('mobile-device', isMobile);
+    
+    // Adjust floating elements based on device
+    adjustFloatingElements();
+}
+
+// Adjust floating elements for current device
+function adjustFloatingElements() {
+    const floatingItems = document.querySelectorAll('.floating-item');
+    
+    floatingItems.forEach(item => {
+        // Make floating items smaller and less intrusive on mobile
+        if (isMobile) {
+            item.style.fontSize = '18px'; // Smaller on mobile
+            item.style.opacity = '0.3';   // More subtle on mobile
+        } else {
+            item.style.fontSize = '24px'; // Original size on desktop
+            item.style.opacity = '0.5';   // Original opacity
+        }
+    });
+}
+
+// Handle window resize for responsive layout
+function handleResize() {
+    detectDevice();
+    
+    // Adjust reaction container position and size
+    if (isMobile) {
+        reactionContainer.style.maxWidth = '85%';
+        reactionContainer.style.padding = '15px 20px';
+    } else {
+        reactionContainer.style.maxWidth = '';
+        reactionContainer.style.padding = '';
+    }
+}
+
 // Initialize the app
 function init() {
     userForm.addEventListener('submit', handleUserFormSubmit);
     restartButton.addEventListener('click', resetApp);
+    
+    // Detect device type initially
+    detectDevice();
+    
+    // Listen for window resize to maintain responsiveness
+    window.addEventListener('resize', handleResize);
     
     // Add animation to floating elements
     animateFloatingElements();
