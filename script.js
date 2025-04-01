@@ -5,7 +5,7 @@ const questions = [
         options: [
             { text: "Roz 5 waqt", value: 100, feedback: "MashAllah bhai! Seedha Jannat ka VIP pass! 🕌✨" },
             { text: "Kabhi kabhi", value: 80, feedback: "Chalo shukr hai kuch tou parhtay thay, consistency lao! 🙏" },
-            { text: "Sirf Jummah", value: 60, feedback: "Start tou hai, magar roz ka scene banao bhai. 🕋" },
+            { text: "Sirf Jummah", value: 60, feedback: "n-3 karte ho ? ya jumma Consistent hai . 🕋" },
             { text: "Bas Eid pe", value: 40, feedback: "Namaz sirf Eid ki choti nahi hoti boss! 😅" }
         ]
     },
@@ -15,7 +15,7 @@ const questions = [
             { text: "Saray mashAllah", value: 100, feedback: "Taqwa level: Pro Max! 🌙💪" },
             { text: "20-30", value: 80, feedback: "Wah bhai, patience aur bukhaar dono sambhal liye! 🔥" },
             { text: "10-20", value: 60, feedback: "Half-half kar liya Ramadan ka subscription! 📅" },
-            { text: "0-10", value: 40, feedback: "Rozay nahi rakhe, roza khor pakray gaye! 😂" }
+            { text: "0-10", value: 40, feedback: "Bhai Tujh se Ziada Rozay toh Manav ne Rakhe! 😂" }
         ]
     },
     {
